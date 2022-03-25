@@ -56,6 +56,62 @@ And then I said "I have \(apples + oranges) pieces of fruit."
 
 ```
 
+###### 弹出的button组
+
+```swift
+import SwiftUI
+
+struct ContentView: View {
+    @State private var showingOptions = false
+        @State private var selection = "None"
+
+        var body: some View {
+            VStack {
+                Text(selection)
+
+                Button("Show Options") {
+                    showingOptions = true
+                }
+                .actionSheet(isPresented: $showingOptions) {
+                    ActionSheet(
+                        title: Text("Select a color"),
+                        buttons: [
+                            .default(Text("Red")) {
+                                selection = "Red"
+                            },
+
+                            .default(Text("Green")) {
+                                selection = "Green"
+                            },
+
+                            .default(Text("Blue")) {
+                                selection = "Blue"
+                            },
+                        ]
+                    )
+                }
+            }
+        }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
+```
+
+![截屏2022-03-23 下午5.28.42](/Users/zyk/Desktop/截屏2022-03-23 下午5.28.42.png)
+
+
+
+
+
+
+
+
+
 
 
 ## 静态UI
