@@ -345,3 +345,131 @@ DatePicker()
 ### 开发
 
 ###### userdefault
+
+
+
+
+
+```swift
+if(TodayReminders[index].Chosen == false)
+{
+  Image(systemName: "circle").font(.system(size: 25)).foregroundColor(Color(red: 193/256, green: 193/256, blue: 195/256)).onTapGesture {
+    TodayReminders[index].Chosen.toggle()
+  }
+}
+else{
+  Image(systemName: "circle.inset.filled").font(.system(size: 25)).foregroundColor(.blue).onTapGesture {
+    TodayReminders[index].Chosen
+    .toggle()
+  }
+}
+VStack(alignment: .leading){
+  Text(TodayReminders[index].ItemName).foregroundColor(TodayReminders[index].Chosen ? .gray : .black)
+  Text(TodayReminders[index].Catagory).foregroundColor(.gray).font(.system(size: 15))
+}
+```
+
+
+
+
+
+```swift
+struct ContentView: View{//主页面
+	var body: some View{
+    VStack{
+      HStack{//searchbar 模块，使用hstack{image text}，加上roundedrectangle形状的background
+        Image()
+        Text()
+      }
+      today_schedule//并排的today、schedule两个模块
+      all//all模块
+      list//下方的lists模块
+    }.toolbar{//底部工具栏
+      Button("new reminder")//左下方new reminder的按钮，使用hstack{image text}的排版
+      Button("add list")//右下方的add list按钮
+    }
+    .sheet(newreminder_page)//开启新建reminder的页面
+    .sheet(addlist_page)//开启新建list的页面
+  }
+  
+  
+  var list:some View{//主页面list组件
+    List{
+      Foreach(list){//遍历所有的list
+        navigation(destination:reminders_page){//每个list都跳转到reminders_page
+          HStack{//横排
+            Image
+            Text(name)//list的name
+            Text(number)//list中reminder的个数
+          }
+        }
+    	}
+      .onDelete { deletelist(at :$0) }//edit按钮的功能——删除该list
+      .onMove { movelist(from: $0, to: $1) }//edit按钮的功能——移动list
+    }.toolbar{editbutton}//右上方的edit按钮
+  }
+  
+  
+  var today_schedule:some View{//主页面today_schedule组件
+    HStack{
+      NavigationLink(destination:scheduled_page){
+        ZStack{//scheduled
+          Rectangle()
+          Image()
+          Text()
+        }
+        ZStack{//today
+          Rectangle()
+          Image()
+          Text()
+        }
+      }
+    }
+  }
+  
+  var all:some View{//主页面all组件
+    NavigationLink(destination:all_page){
+      ZStack{//all
+          Rectangle()
+          Image()
+          Text()
+        }
+    }
+  }
+  
+}
+
+
+
+struct newreminder_page:View{//这是添加reminder的页面
+  var body: some View{//主页面
+    VStack{
+      Form{//使用Form-section模式
+        Section{
+          TextField()//title
+          TextField()//note
+        }
+        Section{//details
+          NavigationLink(destination:details){//跳转到details页面
+            Text("Details")//如果已经选择了details的详细内容，会显示详细的内容小字
+          }
+        }
+        Section{//list
+          NavigationLink(destination:Lists){
+            HStack{
+              Text("List")
+              Circle()
+              Text()//所选择的list
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  
+  var 
+  
+}
+```
+
